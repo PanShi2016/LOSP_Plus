@@ -1,7 +1,5 @@
-# LOSP
-These codes are for our paper "Detecting Overlapping Communities from Local Spectral Subspaces"
 # LOSP_Plus
-LOSP Plus are variants and simplification of LOSP, and the codes are for our paper "Krylov Subspace Approximation for Local Community Detection in Large Networks"
+These codes are for our paper "Krylov Subspace Approximation for Local Community Detection in Large Networks"
 ## Requirements
 Before compiling codes, the following software should be installed in your system.
 - Matlab
@@ -15,12 +13,6 @@ Before compiling codes, the following software should be installed in your syste
 - nodes: 334863, edges: 925872 
 - nodes are products, edges are co-purchase relationships
 - top 5000 communities with ground truth size >= 3
-## How to run LOSP algorithm
-```
-$ cd LOSP_codes 
-$ matlab 
-$ LOSP
-```
 ## How to run LOSP_Plus algorithm
 ```
 $ cd LOSP_Plus_codes
@@ -42,6 +34,18 @@ TruncateMode: 1: truncation by truth size, 2: truncation by local minimal conduc
 
 beta: a parameter controls local minimal conductance (default: 1.02)
 ## How to run baseline algorithms
+### run LEMON algorithm
+```
+$ cd baseline_codes/LEMON
+$ matlab 
+$ LEMON
+```
+### run PGDC-d algorithm
+```
+$ cd baseline_codes/PGDc-d
+$ matlab
+$ PGDC_d
+```
 ### run HK algorithm
 ```
 $ cd baseline_codes/HK
@@ -92,5 +96,7 @@ Please cite our papers if you use the codes in your paper:
 ```
 ### Acknowledgement
 In the program, we incorporate some open source codes as baseline algorithms from the following websites:
+- [LEMON](https://github.com/yixuanli/lemon)
+- [PGDC-d](http://cs.ru.nl/~tvanlaarhoven/conductance2016/)
 - [HK](https://github.com/kkloste/hkgrow)
 - [PR](https://www.cs.purdue.edu/homes/dgleich/codes/neighborhoods/)
