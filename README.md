@@ -33,6 +33,22 @@ alpha: a parameter controls random walk diffusion (default: 1)
 TruncateMode: 1: truncation by truth size, 2: truncation by local minimal conductance (default: 2)
 
 beta: a parameter controls local minimal conductance (default: 1.02)
+## More comparison
+### run GLSP algorithm for evaluating the effectiveness of Krylov subspace approximation
+```
+$ cd LOSP_Plus_codes
+$ matlab 
+$ GLSP_Plus   % using eigenspace rather than Krylov subspace
+```
+### run HKL and PRL for evaluating the effectiveness of local minimal conductance truncation
+```
+$ cd LOSP_Plus_codes
+$ matlab
+$ mex -largeArrayDims hkvec_mex.cpp   % compile mex file
+$ mex -largeArrayDims pprvec_mex.cc   % compile mex file
+$ HK_local    % HK algorithm based on local minimal conductance truncation
+$ PR_local    % PR algorithm based on local minimal conductance truncation
+```
 ## How to run baseline algorithms
 ### run LEMON algorithm
 ```
