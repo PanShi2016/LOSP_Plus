@@ -1,64 +1,53 @@
-function I2 = sampleGraph(seeds,graph )
+function I2 = sampleGraph(seeds,graph,steps)
 % Sample the subgraph according to BFS
 
-for k = 1 : length(seeds)
-    newI = [];
-    tempI = find(graph(seeds(k),:)>0);
-    newI = union(newI,tempI,'stable');
-    I = union(seeds(k), newI,'stable');
-    I = sort(I);
-    degreesOut = zeros(1,length(I));
-    degrees = sum(graph);
-    degrees = degrees(I);
-    subgraphI = graph(I,I);
-    subdegreesIn = sum(subgraphI);
-    
-    for i = 1 : length(I)
-        degreesOut(1,i) = degrees(1,i)-subdegreesIn(1,i);
-    end
-    
-    degreesRatio = subdegreesIn./degreesOut;
-    [~,Ind] = sort(degreesRatio,'descend');
-    
-    for j = 1 : length(Ind)
-        if sum(degreesOut(Ind(1:j))) > 3000
-            break;
+for i = 1 : length(seeds)
+    % one round BFS
+    tempI = find(graph(seeds(i),:) > 0);
+    I = union(seeds(i),tempI,'stable');
+    newI = I;
+    iter = 1;
+
+    while (length(I) < 300 && iter <= steps)
+        % filter some nodes
+        degree = sum(graph);
+        subdegree = degree(newI);
+        subgraph = graph(newI,newI);
+        subdegreeIn = sum(subgraph);
+
+        degreeOut = zeros(1,length(newI));
+        degreeOut = subdegree - subdegreeIn;
+
+        inward_ratio = subdegreeIn./degreeOut;
+        [~,ind] = sort(inward_ratio,'descend');
+
+        if sum(degreeOut) <= 3000
+        else
+            for j = 1 : length(ind)
+                if sum(degreeOut(ind(1:j))) > 3000
+                    newI = newI(ind(1:j));
+                    break;
+                end
+            end
         end
+        % one round BFS
+        [~,newI] = BFS(graph,newI,1);
+        I = union(I,newI,'stable');
+        iter = iter + 1;
     end
-    
-    I2 = I(Ind(1:j));
-    [~,I3] = BFS(graph,I2,1);
-    I4 = union(I3,I);
-    I4 = union(I2,I4);
-    I_seeds{1,k} = I4;
-    
-    if length(I_seeds{1,k}) < 300
-        [~,I3] = BFS(graph,I3,1);
-        I4 = union(I3,I);
-        I4 = union(I2,I4);
-        I_seeds{1,k} = I4;
-    end
+    I2 = union(seeds,I,'stable');
 end
 
-cellfun(@length,I_seeds);
-I = [];
-
-for k =  1 : length(seeds) 
-    I = union(I,I_seeds{1,k});
-end
-
-if length(I) > 5000
-    p = zeros(1,length(I));
-    [~, ind ] = intersect(I,seeds);
-    subgraph = graph(I,I);
+if length(I2) > 5000
+    p = zeros(1,length(I2));
+    [~,ind] = intersect(I2,seeds);
+    subgraph = graph(I2,I2);
     p(ind) = 1/length(ind);
     Prob = RandomWalk(subgraph,p,3);
     [~,ind2] = sort(Prob,'descend');
     Idx = ind2(1:5000);
-    I2 = I(Idx);
-    I2 = union(I2,seeds);
-else
-    I2 = I;
+    I2 = I2(Idx);
+    I2 = union(seeds,I2,'stable');
 end
 
 end

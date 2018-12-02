@@ -48,7 +48,7 @@ seedId = randperm(length(comm{commId}),3);
 seed = comm{commId}(seedId);
 
 % grab subgraph from each seed set
-sample = SampleGraph(seed,graph);
+sample = SampleGraph(seed,graph,2);
 
 % preprocessing, delete isolated nodes
 subgraph = graph(sample,sample);

@@ -35,7 +35,7 @@ else if(randomWalkMode == 3) % lazy random walk, save one half prob at the curre
     end
 end
 
-graph = NormalizeGraph(graph); % aij=aij/di such that aij=pij
+graph = NormalizedGraph(graph); % aij=aij/di such that aij=pij
 n = length(graph);
 V = zeros(k+steps,n);
 V(1,:) = p;
