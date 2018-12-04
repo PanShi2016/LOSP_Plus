@@ -61,11 +61,11 @@ $ mex -largeArrayDims pprgrow_mex.cc   % compile the mex file
 $ PR
 ```
 ## More comparison
-### run GLSP algorithm for evaluating the effectiveness of Krylov subspace approximation
+### run GLOSP algorithm for evaluating the effectiveness of Krylov subspace approximation
 ```
 $ cd LOSP_Plus_codes
 $ matlab 
-$ GLSP_Plus   % GLSP algorithm using eigenspace rather than Krylov subspace
+$ GLOSP_Plus   % GLOSP algorithm using eigenspace rather than Krylov subspace
 ```
 ### run HKL and PRL for evaluating the effectiveness of local minimal conductance truncation
 ```
