@@ -1,4 +1,4 @@
-function [] = GLSP_Plus() 
+function [] = GLOSP_Plus() 
 % Global Spectral Method
 
 graphPath = '../example/Amazon/graph';
@@ -63,7 +63,7 @@ disp(detectedComm')
 fprintf('The F1 score between detected community and ground truth community is %.3f\n',F1)
 
 % save out result
-savePathandName = '../example/Amazon/output_GLSP_Plus.txt';
+savePathandName = '../example/Amazon/output_GLOSP_Plus.txt';
 dlmwrite(savePathandName,'The detected community is','delimiter','');
 dlmwrite(savePathandName,detectedComm','-append','delimiter','\t','precision','%.0f');
 dlmwrite(savePathandName,['The F1 score between detected community and ground truth community are ' num2str(F1,'%.3f')],'-append','delimiter','');
